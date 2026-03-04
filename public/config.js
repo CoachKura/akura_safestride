@@ -16,7 +16,6 @@ const SAFESTRIDE_CONFIG = {
     // Strava OAuth Configuration
     strava: {
         clientId: '162971',
-        clientSecret: 'ca2a2ef68680c324e0ba4db3ed6e6006a9dc7626', // Only used in edge functions
         redirectUri: window.location.origin + '/public/strava-callback.html',
         authorizeUrl: 'https://www.strava.com/oauth/authorize',
         tokenUrl: 'https://www.strava.com/oauth/token',

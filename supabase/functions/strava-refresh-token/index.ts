@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Supabase Edge Function: strava-refresh-token
 // Automatically refreshes expired Strava access tokens
 // Deploy to: https://supabase.com/dashboard/project/bdisppaxbvygsspcuymb/functions
@@ -5,8 +6,13 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const STRAVA_CLIENT_ID = "162971"
-const STRAVA_CLIENT_SECRET = "ca2a2ef68680c324e0ba4db3ed6e6006a9dc7626"
+function getRequiredEnvVar(name: string): string {
+  const value = Deno.env.get(name)
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`)
+  }
+  return value
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -29,6 +35,9 @@ serve(async (req) => {
       throw new Error('athleteId and refreshToken are required')
     }
 
+    const stravaClientId = getRequiredEnvVar('STRAVA_CLIENT_ID')
+    const stravaClientSecret = getRequiredEnvVar('STRAVA_CLIENT_SECRET')
+
     // Exchange refresh token for new access token
     console.log('📡 Calling Strava token refresh API...')
     const tokenResponse = await fetch('https://www.strava.com/oauth/token', {
@@ -37,8 +46,8 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        client_id: STRAVA_CLIENT_ID,
-        client_secret: STRAVA_CLIENT_SECRET,
+        client_id: stravaClientId,
+        client_secret: stravaClientSecret,
         grant_type: 'refresh_token',
         refresh_token: refreshToken
       }),

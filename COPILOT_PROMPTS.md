@@ -73,7 +73,7 @@ webapp/
 
 **Copilot Prompt**:
 ```
-Create a Strava OAuth authentication handler for a Hono.js app running on Cloudflare Workers using JavaScript (not JavaScript).
+Create a Strava OAuth authentication handler for a Hono.js app running on Cloudflare Workers using JavaScript (not TypeScript).
 
 Requirements:
 - Use Strava OAuth 2.0 flow (authorization code grant)

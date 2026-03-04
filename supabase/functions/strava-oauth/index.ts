@@ -1,3 +1,4 @@
+// @ts-nocheck
 // Supabase Edge Function: strava-oauth
 // Deploy this to handle Strava OAuth token exchange
 // Path: supabase/functions/strava-oauth/index.ts
@@ -5,8 +6,13 @@
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
-const STRAVA_CLIENT_ID = "162971"
-const STRAVA_CLIENT_SECRET = "ca2a2ef68680c324e0ba4db3ed6e6006a9dc7626"
+function getRequiredEnvVar(name: string): string {
+  const value = Deno.env.get(name)
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`)
+  }
+  return value
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -33,6 +39,9 @@ serve(async (req) => {
       throw new Error('Authorization code is required')
     }
 
+    const stravaClientId = getRequiredEnvVar('STRAVA_CLIENT_ID')
+    const stravaClientSecret = getRequiredEnvVar('STRAVA_CLIENT_SECRET')
+
     console.log('🔄 Exchanging Strava authorization code...')
 
     // Step 1: Exchange code for tokens
@@ -42,8 +51,8 @@ serve(async (req) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        client_id: STRAVA_CLIENT_ID,
-        client_secret: STRAVA_CLIENT_SECRET,
+        client_id: stravaClientId,
+        client_secret: stravaClientSecret,
         code,
         grant_type: 'authorization_code',
       }),

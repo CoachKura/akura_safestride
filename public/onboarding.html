@@ -24,7 +24,6 @@
             },
             strava: {
                 clientId: '139446',
-                clientSecret: 'b58cec58bcc28f5ce8b05f6ee69d98b1ec2f8c55',
                 redirectUri: window.location.origin + '/public/strava-callback.html',
                 scope: 'read,activity:read_all,profile:read_all'
             },
@@ -232,6 +231,25 @@
             text-align: center;
             color: var(--gray-400);
         }
+
+        .instruction-text {
+            color: var(--gray-700);
+            font-size: var(--text-sm);
+            margin-bottom: 1rem;
+        }
+
+        .capture-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .file-input-hidden {
+            display: none;
+        }
+
+        .btn-full {
+            width: 100%;
+        }
         
         .device-card {
             background: white;
@@ -252,6 +270,46 @@
         .device-card.connected {
             border-color: var(--success-600);
             background-color: var(--success-50);
+        }
+
+        .device-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .device-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .device-description {
+            color: var(--gray-600);
+            font-size: var(--text-sm);
+            margin-bottom: 1.5rem;
+        }
+
+        .device-button {
+            width: 100%;
+        }
+
+        .device-status {
+            margin-top: 1rem;
+            font-size: var(--text-sm);
+        }
+
+        .info-alert-spaced {
+            margin-top: 2rem;
+        }
+
+        .actions-tight {
+            margin-top: 2rem;
+        }
+
+        .btn-flex {
+            flex: 1;
         }
         
         .device-icon {
@@ -382,8 +440,8 @@
                     </div>
                     
                     <div class="form-group">
-                        <label class="form-label">Gender</label>
-                        <select id="gender" class="form-select" required>
+                        <label class="form-label" for="gender">Gender</label>
+                        <select id="gender" class="form-select" required aria-label="Gender" title="Gender">
                             <option value="">Select...</option>
                             <option value="male">Male</option>
                             <option value="female">Female</option>
@@ -466,38 +524,38 @@
                 </div>
                 
                 <div class="card-body">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-top: 2rem;">
+                    <div class="device-grid">
                         <div class="device-card" id="strava-card" onclick="connectStrava()">
                             <div class="device-icon strava">
                                 <i class="fab fa-strava"></i>
                             </div>
-                            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Strava</h3>
-                            <p style="color: var(--gray-600); font-size: var(--text-sm); margin-bottom: 1.5rem;">
+                            <h3 class="device-title">Strava</h3>
+                            <p class="device-description">
                                 Connect your Strava account
                             </p>
-                            <button class="btn btn-secondary" style="width: 100%;">
+                            <button class="btn btn-secondary device-button">
                                 <i class="fab fa-strava"></i>
                                 Connect Strava
                             </button>
-                            <div id="strava-status" style="margin-top: 1rem; font-size: var(--text-sm);"></div>
+                            <div id="strava-status" class="device-status"></div>
                         </div>
                         
                         <div class="device-card" onclick="alert('Garmin integration coming soon!')">
                             <div class="device-icon garmin">
                                 <i class="fas fa-watch"></i>
                             </div>
-                            <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Garmin</h3>
-                            <p style="color: var(--gray-600); font-size: var(--text-sm); margin-bottom: 1.5rem;">
+                            <h3 class="device-title">Garmin</h3>
+                            <p class="device-description">
                                 Connect your Garmin device
                             </p>
-                            <button class="btn btn-secondary" style="width: 100%;" disabled>
+                            <button class="btn btn-secondary device-button" disabled>
                                 <i class="fas fa-watch"></i>
                                 Coming Soon
                             </button>
                         </div>
                     </div>
                     
-                    <div class="alert alert-info" style="margin-top: 2rem;">
+                    <div class="alert alert-info info-alert-spaced">
                         <i class="fas fa-info-circle"></i>
                         <div>
                             <strong>Why connect a device?</strong> We automatically calculate your Running Pillar score based on your activity data, training load, and consistency.
@@ -539,12 +597,12 @@
                 </div>
             </div>
             
-            <div class="actions" style="margin-top: 2rem;">
+            <div class="actions actions-tight">
                 <button class="btn btn-secondary" onclick="prevStep()">
                     <i class="fas fa-arrow-left"></i>
                     Back
                 </button>
-                <button class="btn btn-success" onclick="completeOnboarding()" style="flex: 1;">
+                <button class="btn btn-success btn-flex" onclick="completeOnboarding()">
                     <i class="fas fa-check"></i>
                     Complete Onboarding &amp; View Dashboard
                 </button>
@@ -619,7 +677,7 @@
                     </div>
                     
                     <div class="test-body">
-                        <p style="color: var(--gray-700); font-size: var(--text-sm); margin-bottom: 1rem;">
+                        <p class="instruction-text">
                             <strong>Instructions:</strong> ${test.instruction}
                         </p>
                         
@@ -651,7 +709,7 @@
                             <label class="form-label">Capture Image</label>
                             <div class="capture-preview" id="${test.id}_preview">
                                 <div class="capture-placeholder">
-                                    <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                                    <i class="fas fa-camera capture-icon"></i>
                                     <p>Tap to capture image</p>
                                 </div>
                             </div>
@@ -660,12 +718,11 @@
                                 accept="image/*" 
                                 capture="environment" 
                                 id="${test.id}_image"
-                                style="display: none;"
+                                class="file-input-hidden"
                                 onchange="handleImageCapture('${test.id}', this)"
                             >
                             <button 
-                                class="btn btn-secondary" 
-                                style="width: 100%;"
+                                class="btn btn-secondary btn-full" 
                                 onclick="document.getElementById('${test.id}_image').click()"
                             >
                                 <i class="fas fa-camera"></i>

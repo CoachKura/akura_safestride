@@ -1,9 +1,18 @@
+// @ts-nocheck
 // Supabase Edge Function: strava-sync-activities
 // Fetches activities from Strava and calculates AISRI scores with ML/AI
 // Path: supabase/functions/strava-sync-activities/index.ts
 
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+function getRequiredEnvVar(name: string): string {
+  const value = Deno.env.get(name)
+  if (!value) {
+    throw new Error(`Missing required environment variable: ${name}`)
+  }
+  return value
+}
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -157,12 +166,15 @@ serve(async (req) => {
 
 // Helper: Refresh Strava token
 async function refreshStravaToken(refreshToken, supabase, athleteId) {
+  const stravaClientId = getRequiredEnvVar('STRAVA_CLIENT_ID')
+  const stravaClientSecret = getRequiredEnvVar('STRAVA_CLIENT_SECRET')
+
   const response = await fetch('https://www.strava.com/oauth/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      client_id: "162971",
-      client_secret: "ca2a2ef68680c324e0ba4db3ed6e6006a9dc7626",
+      client_id: stravaClientId,
+      client_secret: stravaClientSecret,
       grant_type: 'refresh_token',
       refresh_token: refreshToken,
     }),
