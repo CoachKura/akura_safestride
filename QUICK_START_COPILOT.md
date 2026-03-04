@@ -351,7 +351,7 @@ Type: "Explain why this code isn't working"
 **Solution**:
 1. Read error message
 2. Ask Copilot: "Fix this error: [error]"
-3. Check TypeScript types
+3. Check JavaScript types
 4. Verify imports are correct
 
 ### **Issue: Code Works Locally But Fails in Production**

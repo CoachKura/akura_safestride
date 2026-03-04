@@ -43,20 +43,20 @@ System Creates 12-Week Training Plan
 webapp/
 ├── src/
 │   ├── api/
-│   │   ├── strava-auth.ts          # Strava OAuth handler
-│   │   ├── strava-webhook.ts       # Receive activity updates
-│   │   ├── strava-activities.ts    # Fetch athlete activities
-│   │   ├── aisri-calculator.ts     # Calculate AISRI score
-│   │   ├── workout-generator.ts    # AI workout generator
-│   │   └── training-plan.ts        # Generate 12-week plan
+│   │   ├── strava-auth.js          # Strava OAuth handler
+│   │   ├── strava-webhook.js       # Receive activity updates
+│   │   ├── strava-activities.js    # Fetch athlete activities
+│   │   ├── aisri-calculator.js     # Calculate AISRI score
+│   │   ├── workout-generator.js    # AI workout generator
+│   │   └── training-plan.js        # Generate 12-week plan
 │   ├── services/
-│   │   ├── strava-client.ts        # Strava API client
-│   │   ├── aisri-engine.ts         # AISRI calculation logic
-│   │   ├── workout-ai.ts           # AI workout generation
-│   │   └── plan-builder.ts         # Training plan builder
+│   │   ├── strava-client.js        # Strava API client
+│   │   ├── aisri-engine.js         # AISRI calculation logic
+│   │   ├── workout-ai.js           # AI workout generation
+│   │   └── plan-builder.js         # Training plan builder
 │   └── utils/
-│       ├── token-manager.ts        # Manage OAuth tokens
-│       └── date-utils.ts           # Date/time helpers
+│       ├── token-manager.js        # Manage OAuth tokens
+│       └── date-utils.js           # Date/time helpers
 ├── public/
 │   └── strava-callback.html        # OAuth redirect page
 └── migrations/
@@ -69,11 +69,11 @@ webapp/
 
 ### **Prompt 1: Create Strava OAuth Handler**
 
-**File**: `src/api/strava-auth.ts`
+**File**: `src/api/strava-auth.js`
 
 **Copilot Prompt**:
 ```
-Create a Strava OAuth authentication handler for a Hono.js app running on Cloudflare Workers.
+Create a Strava OAuth authentication handler for a Hono.js app running on Cloudflare Workers using JavaScript (not JavaScript).
 
 Requirements:
 - Use Strava OAuth 2.0 flow (authorization code grant)
@@ -110,11 +110,11 @@ API Endpoints:
 
 ### **Prompt 2: Create Strava API Client**
 
-**File**: `src/services/strava-client.ts`
+**File**: `src/services/strava-client.js`
 
 **Copilot Prompt**:
 ```
-Create a Strava API client service for Cloudflare Workers with TypeScript.
+Create a Strava API client service for Cloudflare Workers with JavaScript.
 
 Requirements:
 - Fetch athlete activities from Strava API v3
@@ -162,7 +162,7 @@ Requirements:
 
 ### **Prompt 4: Analyze Past Activities**
 
-**File**: `src/services/activity-analyzer.ts`
+**File**: `src/services/activity-analyzer.js`
 
 **Copilot Prompt**:
 ```
@@ -208,13 +208,13 @@ Return: ActivityAnalysis object with all metrics
 
 ### **Prompt 5: Calculate Running Pillar Score**
 
-**File**: `src/services/running-pillar.ts`
+**File**: `src/services/running-pillar.js`
 
 **Copilot Prompt**:
 ```
 Create a Running Pillar calculator for AISRI system.
 
-Input: ActivityAnalysis data from activity-analyzer.ts
+Input: ActivityAnalysis data from activity-analyzer.js
 
 Calculate Running Pillar Score (0-100) based on:
 - Training Consistency (30%): Higher score for consistent training
@@ -243,7 +243,7 @@ Return: { score: number, breakdown: object, recommendations: string[] }
 
 ### **Prompt 6: Build AISRI Calculator**
 
-**File**: `src/services/aisri-engine.ts`
+**File**: `src/services/aisri-engine.js`
 
 **Copilot Prompt**:
 ```
@@ -297,7 +297,7 @@ Return: {
 
 ### **Prompt 7: Create AI Workout Generator**
 
-**File**: `src/services/workout-ai.ts`
+**File**: `src/services/workout-ai.js`
 
 **Copilot Prompt**:
 ```
@@ -381,7 +381,7 @@ Return: Generated workout object
 
 ### **Prompt 8: Create 12-Week Training Plan Generator**
 
-**File**: `src/services/plan-builder.ts`
+**File**: `src/services/plan-builder.js`
 
 **Copilot Prompt**:
 ```
@@ -616,7 +616,7 @@ WHERE gw.workout_date >= date('now', 'weekday 1', '-7 days')
 
 ### **Prompt 11: Create Complete API Routes**
 
-**File**: `src/api/workout-generator.ts`
+**File**: `src/api/workout-generator.js`
 
 **Copilot Prompt**:
 ```typescript
@@ -683,7 +683,7 @@ All endpoints use:
 - Authentication middleware
 - Error handling
 - D1 database (Cloudflare)
-- TypeScript types
+- JavaScript types
 ```
 
 ---
@@ -833,7 +833,7 @@ Design: Tailwind CSS, purple theme, responsive, data loaded via API
 
 ### **Prompt 15: Email Notification System**
 
-**File**: `src/services/email-notifications.ts`
+**File**: `src/services/email-notifications.js`
 
 **Copilot Prompt**:
 ```typescript
@@ -980,19 +980,19 @@ git checkout -b feature/workout-generator
 mkdir -p src/api src/services src/utils public/data migrations
 
 # 3. Create placeholder files
-touch src/api/strava-auth.ts
-touch src/api/strava-activities.ts
-touch src/api/workout-generator.ts
-touch src/services/strava-client.ts
-touch src/services/activity-analyzer.ts
-touch src/services/aisri-engine.ts
-touch src/services/workout-ai.ts
-touch src/services/plan-builder.ts
+touch src/api/strava-auth.js
+touch src/api/strava-activities.js
+touch src/api/workout-generator.js
+touch src/services/strava-client.js
+touch src/services/activity-analyzer.js
+touch src/services/aisri-engine.js
+touch src/services/workout-ai.js
+touch src/services/plan-builder.js
 touch public/strava-callback.html
 touch migrations/006_strava_integration.sql
 
 # 4. Start with first prompt
-code src/api/strava-auth.ts
+code src/api/strava-auth.js
 ```
 
 **Then in the file, use Copilot**:
@@ -1024,7 +1024,7 @@ code src/api/strava-auth.ts
 
 **Your workflow**:
 1. Open VS Code
-2. Open first file: `src/api/strava-auth.ts`
+2. Open first file: `src/api/strava-auth.js`
 3. Press `Ctrl+I`
 4. Copy-paste **Prompt 1** above
 5. Let Copilot generate the code
