@@ -320,88 +320,66 @@
             font-weight: 700;
         }
         
-        /* Journey Timeline */
+        /* Journey Cards */
         .journey-section {
             background: white;
         }
         
-        .journey-timeline {
-            position: relative;
+        .journey-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
             margin-top: 4rem;
         }
         
-        .journey-line {
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(to bottom, #9333EA, #7C3AED);
-            transform: translateX(-50%);
-        }
-        
-        .journey-step {
-            position: relative;
-            display: grid;
-            grid-template-columns: 1fr 100px 1fr;
-            gap: 2rem;
-            margin-bottom: 4rem;
-            align-items: center;
-        }
-        
-        .journey-step:nth-child(even) .journey-content:first-child {
-            order: 3;
-        }
-        
-        .journey-step:nth-child(even) .journey-marker {
-            order: 2;
-        }
-        
-        .journey-step:nth-child(even) .journey-empty {
-            order: 1;
-        }
-        
-        .journey-content {
-            background: #F7FAFC;
-            padding: 2rem;
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-        
-        .journey-content:hover {
-            background: #EDF2F7;
-            transform: scale(1.02);
-        }
-        
-        .journey-content h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #1A202C;
-            margin-bottom: 0.5rem;
-        }
-        
-        .journey-content p {
-            color: #4A5568;
-            line-height: 1.6;
-        }
-        
-        .journey-marker {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            background: white;
-            border: 4px solid #9333EA;
+        .journey-card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 16px;
+            min-height: 280px;
+            padding: 1.75rem;
+            text-align: center;
             display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+        }
+        
+        .journey-card:hover {
+            transform: translateY(-6px);
+            border-color: #9333EA;
+            box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1);
+        }
+        
+        .journey-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #9333EA 0%, #7C3AED 100%);
+            color: #FFFFFF;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            position: relative;
-            z-index: 2;
-            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+            font-size: 1.75rem;
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.25);
+            margin-bottom: 1.25rem;
+        }
+
+        .journey-card h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1A202C;
+            margin-bottom: 1rem;
+            line-height: 1.35;
         }
         
-        .journey-empty {
-            display: none;
+        .journey-card p {
+            font-size: 0.9375rem;
+            color: #4A5568;
+            line-height: 1.6;
+            margin: 0;
         }
         
         /* AISRI Demo */
@@ -700,28 +678,18 @@
         }
         
         @media (max-width: 968px) {
-            .journey-step {
-                grid-template-columns: 1fr;
-            }
-            
-            .journey-marker {
-                margin: 0 auto;
-            }
-            
-            .journey-line {
-                display: none;
-            }
-            
-            .journey-step:nth-child(even) .journey-content:first-child {
-                order: 1;
-            }
-            
             .footer-content {
                 grid-template-columns: repeat(2, 1fr);
             }
             
             .nav-links {
                 display: none;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .journey-cards {
+                grid-template-columns: 1fr;
             }
         }
         
@@ -841,65 +809,50 @@
                 Four simple steps to injury-free performance. Our AI-powered system guides you every step of the way.
             </p>
             
-            <div class="journey-timeline">
-                <div class="journey-line"></div>
-                
-                <div class="journey-step">
-                    <div class="journey-content">
-                        <h3>1. Complete AISRI Assessment</h3>
-                        <p>
-                            Take our comprehensive 6-pillar evaluation: Mobility, Strength, Mental Resilience, Recovery, Injury Prevention, and Performance. 
-                            Connect your Strava to analyze your complete running history. Get your personalized AISRI score (0-100).
-                        </p>
-                    </div>
-                    <div class="journey-marker">
+            <div class="journey-cards">
+                <article class="journey-card">
+                    <div class="journey-icon" aria-hidden="true">
                         <i class="fas fa-clipboard-check"></i>
                     </div>
-                    <div class="journey-empty"></div>
-                </div>
-                
-                <div class="journey-step">
-                    <div class="journey-empty"></div>
-                    <div class="journey-marker">
+                    <h3>1. Complete AISRI Assessment</h3>
+                    <p>
+                        Take our comprehensive 6-pillar evaluation: <strong>Mobility, Strength, Mental Resilience, Recovery, Injury Prevention, and Performance</strong>.
+                        Connect your Strava to analyze your complete running history and get your personalized <strong>AISRI score (0-100)</strong>.
+                    </p>
+                </article>
+
+                <article class="journey-card">
+                    <div class="journey-icon" aria-hidden="true">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <div class="journey-content">
-                        <h3>2. Get Safety Gates Assigned</h3>
-                        <p>
-                            Based on your AISRI score, we assign training zones you can safely access. 
-                            AISRI 42? Start with Zone 1-2 only. As you improve, new zones unlock automatically. 
-                            This prevents 85% of running injuries.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="journey-step">
-                    <div class="journey-content">
-                        <h3>3. Follow Your Dynamic Plan</h3>
-                        <p>
-                            Receive a 12-week training plan with 7 core protocols (START, ENGINE, OXYGEN, POWER, ZONES, STRENGTH, LONG RUN). 
-                            Your plan adapts if you miss workouts. Coach Kura monitors your progress daily.
-                        </p>
-                    </div>
-                    <div class="journey-marker">
+                    <h3>2. Get Safety Gates Assigned</h3>
+                    <p>
+                        Based on your AISRI score, we assign training zones you can safely access. <strong>AISRI 42? Start with Zone 1-2 only</strong>.
+                        As you improve, new zones unlock automatically and help prevent <strong>85% of running injuries</strong>.
+                    </p>
+                </article>
+
+                <article class="journey-card">
+                    <div class="journey-icon" aria-hidden="true">
                         <i class="fas fa-running"></i>
                     </div>
-                    <div class="journey-empty"></div>
-                </div>
-                
-                <div class="journey-step">
-                    <div class="journey-empty"></div>
-                    <div class="journey-marker">
+                    <h3>3. Follow Your Dynamic Plan</h3>
+                    <p>
+                        Receive a <strong>12-week training plan</strong> with <strong>START, ENGINE, OXYGEN, POWER, ZONES, STRENGTH, LONG RUN</strong>.
+                        Your plan adapts if you miss workouts, and <strong>Coach Kura monitors your progress daily</strong>.
+                    </p>
+                </article>
+
+                <article class="journey-card">
+                    <div class="journey-icon" aria-hidden="true">
                         <i class="fas fa-trophy"></i>
                     </div>
-                    <div class="journey-content">
-                        <h3>4. Achieve Your Goals Injury-Free</h3>
-                        <p>
-                            Monthly re-evaluations track your improvement. Unlock new training zones as your AISRI score increases. 
-                            Train like a pro, perform like an elite athlete — all without injuries.
-                        </p>
-                    </div>
-                </div>
+                    <h3>4. Achieve Your Goals Injury-Free</h3>
+                    <p>
+                        Monthly re-evaluations track your improvement and unlock new training zones as your AISRI score increases.
+                        Train like a pro, perform like an elite athlete, and keep progressing without injuries.
+                    </p>
+                </article>
             </div>
         </div>
     </section>
